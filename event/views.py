@@ -22,7 +22,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+           # return redirect('home')
         else:
             messages.error(request, 'Invalid username or password.')
     return render(request, 'login.html')
@@ -33,7 +33,7 @@ def create_event(request):
         if form.is_valid():
             event = form.save(commit=False)
             event.save()
-            #return redirect('event_list')
+            return redirect('event_list')
     else:
         form = EventForm()
     return render(request, 'create_event.html', {'form': form})
