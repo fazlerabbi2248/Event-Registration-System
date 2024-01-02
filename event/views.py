@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.utils import timezone
 from django.contrib.auth import authenticate, login as auth_login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from event.models import Event,Registration
@@ -56,3 +56,30 @@ def upcoming_events(request):
         'current_datetime': current_datetime
     }
     return render(request, 'upcoming_events.html', context)
+
+@login_required
+def register_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    user = request.user
+
+
+    if Registration.objects.filter(event=event, user=user).exists():
+        messages.warning(request, 'You are already registered for this event.')
+    else:
+        registration = Registration(event=event, user=user)
+        registration.save()
+        messages.success(request, 'You have successfully registered for the event.')
+    return redirect('home')
+
+
+@login_required
+def user_registered_events(request):
+    user = request.user
+    registered_events = Registration.objects.filter(user=user).select_related('event')
+    username =user.get_username()
+
+    context = {
+        'username': username,
+        'registered_events': registered_events,
+    }
+    return render(request, 'registered_events.html', context)
