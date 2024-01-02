@@ -9,6 +9,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('', views.home, name='home'),
     path('events/create/', views.create_event, name='create_event'),
+    path('events/upcoming/', views.upcoming_events, name='upcoming_events'),
 
 
 ]

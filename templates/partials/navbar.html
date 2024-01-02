@@ -10,16 +10,16 @@
             <a class="nav-link active" aria-current="page" href="#"><i class="fas fa-home"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-calendar-plus"></i> Create Event</a>
+            <a class="nav-link" href="{% url 'create_event' %}"><i class="fas fa-calendar-plus"></i> Create Event</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-calendar"></i> On-Going Event</a>
+            <a class="nav-link" href="{% url 'upcoming_events' %}"><i class="fas fa-calendar"></i> Up-coming Event</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fas fa-calendar-check"></i> My Event</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-user-check"></i> Registered Event</a>
+            <a class="nav-link" href='#'><i class="fas fa-user-check"></i> Registered Event</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,10 +31,7 @@
             </ul>
           </li>
         </ul>
-        <form class="d-flex flex-fill">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit"> Search</button>
-        </form>
+
       </div>
     </div>
   </nav>

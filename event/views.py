@@ -1,8 +1,10 @@
+from datetime import datetime
+from django.utils import timezone
 from django.contrib.auth import authenticate, login as auth_login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from event.models import Event,Registration
 from .forms import CustomUserCreationForm, EventForm
 
 
@@ -32,13 +34,25 @@ def login(request):
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
             event = form.save(commit=False)
             event.save()
-            return redirect('event_list')
+            return redirect('home')
     else:
         form = EventForm()
     return render(request, 'create_event.html', {'form': form})
+
+@login_required
+def upcoming_events(request):
+    current_datetime = timezone.now()
+    upcoming_events = Event.objects.filter(date__gt=current_datetime).order_by('date')
+
+    context = {
+        'upcoming_events': upcoming_events,
+        'current_datetime': current_datetime
+    }
+    return render(request, 'upcoming_events.html', context)

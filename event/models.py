@@ -9,6 +9,7 @@ class Event(models.Model):
     location = models.CharField(max_length=100)
     slots_available = models.IntegerField()
 
+
     def __str__(self):
         return self.title
 
