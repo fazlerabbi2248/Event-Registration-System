@@ -15,6 +15,7 @@ class Event(models.Model):
 
 
 
+
 class Registration(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

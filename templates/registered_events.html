@@ -18,8 +18,8 @@
                             <i class="fas fa-map-marker-alt"></i> Location: {{ registration.event.location }}<br>
                             <i class="far fa-file-alt"></i> Description: {{ registration.event.description }}<br>
                             <i class="fa fa-check"></i> Slot available: {{ registration.event.slots_available }}<br>
-                         <a href="" class="btn btn-primary">
-                                <i class="fas fa-check-circle"></i> UnRegister
+                         <a href="{% url 'unregister_event' registration.event.id %}" class="btn btn-primary">
+                                <i class="fa fa-remove"></i> UnRegister
                             </a>
                         </p>
                     </div>

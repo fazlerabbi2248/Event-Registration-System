@@ -2,4 +2,35 @@
 
 {% block content %}
 
+    <div class="container mt-5">
+        <h1> All event</h1>
+        <form action="{% url 'home' %}" method="GET">
+            <input type="text" name="query" placeholder="Search events...">
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="row">
+            {% for event in all_events %}
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">
+                            <i class="far fa-calendar-alt"></i> Date: {{ event.date }}<br>
+                            <i class="far fa-clock"></i> Time: {{ event.time }}<br>
+                            <i class="fas fa-map-marker-alt"></i> Location: {{ event.location }}<br>
+                            <i class="far fa-file-alt"></i> Description: {{ event.description }}<br>
+                            <i class="fa fa-check"></i> Slot available: {{ event.slots_available }}<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <p>No  events at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock content %}
