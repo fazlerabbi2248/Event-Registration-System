@@ -1,0 +1,34 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <h1>Participate events for {{ username }}</h1>
+
+
+        <div class="row">
+            {% for participate in participate_events %}
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ participate.event.title }}</h5>
+                        <p class="card-text">
+                            <i class="far fa-calendar-alt"></i> Date: {{ participate.event.date }}<br>
+                            <i class="far fa-clock"></i> Time: {{ participate.event.time }}<br>
+                            <i class="fas fa-map-marker-alt"></i> Location: {{ participate.event.location }}<br>
+                            <i class="far fa-file-alt"></i> Description: {{ participate.event.description }}<br>
+                            <i class="fa fa-check"></i> Slot available: {{ participate.event.slots_available }}<br>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <p>No participated events at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

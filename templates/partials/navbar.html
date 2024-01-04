@@ -16,7 +16,7 @@
             <a class="nav-link" href="{% url 'upcoming_events' %}"><i class="fas fa-calendar"></i> Up-coming Event</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-calendar-check"></i> My Event</a>
+            <a class="nav-link" href="{% url 'participate_events' %}"><i class="fas fa-calendar-check"></i> My participate Event</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href='{% url 'registered_events' %}'><i class="fas fa-user-check"></i> Registered Event</a>
@@ -27,7 +27,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> Profile</a></li>
-              <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
             </ul>
           </li>
         </ul>

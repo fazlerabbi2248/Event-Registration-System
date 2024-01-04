@@ -1,6 +1,6 @@
-from datetime import datetime
+from datetime import datetime, date
 from django.utils import timezone
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -87,11 +87,21 @@ def register_event(request, event_id):
     return redirect('registered_events')
 
 
+
+
+
 @login_required
 def user_registered_events(request):
     user = request.user
-    registered_events = Registration.objects.filter(user=user).select_related('event')
-    username =user.get_username()
+    today = timezone.now().date()
+
+
+    registered_events = Registration.objects.filter(
+        user=user,
+        event__date__gte=today
+    ).select_related('event')
+
+    username = user.get_username()
 
     context = {
         'username': username,
@@ -115,3 +125,24 @@ def unregister_event(request, event_id):
         messages.warning(request, 'You are not registered for this event.')
 
     return redirect('registered_events')
+
+@login_required
+def participate_events(request):
+    user = request.user
+    today = timezone.now().date()
+
+    participate_events = Registration.objects.filter(user=user,event__date__lt=today).select_related('event')
+
+    username = user.get_username()
+
+    context = {
+        'username': username,
+        'participate_events': participate_events,
+    }
+    return render(request, 'participate_events.html', context)
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login')
