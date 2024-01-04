@@ -1,4 +1,6 @@
 from datetime import datetime, date
+
+from django.db.models import Q
 from django.utils import timezone
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.shortcuts import render, redirect, get_object_or_404
@@ -35,7 +37,7 @@ def home(request):
     query = request.GET.get('query')
     if query:
         all_events = Event.objects.filter(
-            title__icontains=query
+            Q(title__icontains=query) | Q(location__icontains=query)
         )
     else:
         all_events = Event.objects.all()
