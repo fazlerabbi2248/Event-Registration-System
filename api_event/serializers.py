@@ -30,6 +30,15 @@ class EventDetailSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
+  username = serializers.CharField()
   class Meta:
     model = User
     fields = ['username', 'password']
+
+class EventRegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Registration
+        fields = '__all__'
+
+
+
