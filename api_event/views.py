@@ -12,11 +12,13 @@ from .serializers import EventSerializer,EventDetailSerializer,UserLoginSerializ
 class EventListAPIView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    # permission_classes = [AllowAny]
 
 
 
 
 class EventDetailAPIView(generics.RetrieveAPIView):
+    # permission_classes = [AllowAny]
     queryset = Event.objects.all()
     serializer_class = EventDetailSerializer
 
@@ -28,7 +30,7 @@ def get_tokens_for_user(user):
   }
 
 class UserLoginView(APIView):
-  permission_classes = []
+  # permission_classes = [AllowAny]
 
   def post(self, request, format=None):
     serializer = UserLoginSerializer(data=request.data)
@@ -71,3 +73,12 @@ class EventRegistrationView(generics.CreateAPIView):
                 return Response({'error': 'No available slots for this event.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class RegisteredEventListAPIView(generics.ListAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        registered_event_ids = Registration.objects.filter(user=user).values_list('event', flat=True)
+        return Event.objects.filter(id__in=registered_event_ids)
